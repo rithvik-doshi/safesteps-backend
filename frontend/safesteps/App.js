@@ -1,10 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet,Button, Text, View,SafeAreaView,Alert } from 'react-native';
 import {Audio} from 'expo-av';
-
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Alert, Modal, TouchableOpacity, Image } from 'react-native';
+import {Button, StyleSheet, Text, View, SafeAreaView, Alert, Modal, TouchableOpacity, Image } from 'react-native';
 import * as Font from 'expo-font'
 import  AwesomeAlert  from 'react-native-awesome-alerts'
 
@@ -92,6 +89,10 @@ export default function App() {
         <TouchableOpacity style={styles.button} onPress={() => setAlert2(true)}>
           <Text style={styles.buttonText1}>Alert Type #2</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => playSound(require('./beep.mp3'))} >
+          <Text style={styles.buttonText1}>Alert Type #3</Text>
+        </TouchableOpacity>
       </View>
 
       <AwesomeAlert
@@ -132,16 +133,15 @@ export default function App() {
         </View>
       </Modal>
 
-      <Text>Welcome to SafeSteps!!</Text>
-      <Button
+    
+      {/* <Button
         title= "Audio Alert"
         color="black"
         //onPress={() => Alert.alert('Continue?')}
-  
         onPress={() => playSound(require('./alert1.mp3'))}
         buttonStyle={styles.button}
         titleStyle={styles.text}
-      />
+      /> */}
 
       <StatusBar style="auto" />
     </View>
@@ -154,10 +154,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#7e678f',
     alignItems: 'center',
     justifyContent: 'center',
+    
+    
   },
   buttonContainer: {
     flexDirection: 'row', // Make buttons horizontal
     justifyContent: 'center', // Center buttons horizontally
+    flexWrap: 'wrap',
     marginTop: 50, // Add spacing
   },
   button: {
