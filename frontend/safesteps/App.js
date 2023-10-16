@@ -1,25 +1,54 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Alert, Modal, TouchableOpacity, Image } from 'react-native';
-import * as Font from 'expo-font'
-import  AwesomeAlert  from 'react-native-awesome-alerts'
+import { StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch } from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function App() {
   const [alert1, setAlert1] = useState(false);
   const [alert2, setAlert2] = useState(false);
+  const [alertEnabled, setAlertEnabled] = useState(false);
+
+  
 
   return (
     <View style={styles.container}>
-      <Text style={styles.baseText}>Welcome to SafeSteps!</Text>
+      <Text style={styles.mainHeadingText}>Alert Types</Text>
+      <Text style={styles.subheadingText}>VISUAL ALERT</Text>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => setAlert1(true)}>
-          <Text style={styles.buttonText1}>Alert Type #1</Text>
-        </TouchableOpacity>
+      <View style={styles.settingsContainer}>
+        <View style={styles.rowContainer}>
+          <Text style={styles.toggleText}>Enable Visual Alerts</Text>
+          <Switch
+            value={alertEnabled}
+            onValueChange={() => setAlertEnabled(!alertEnabled)}
+            trackColor={{ false: '#e8e5ea', true: '#7e678f' }}
+          />
+        </View>
+  
 
-        <TouchableOpacity style={styles.button} onPress={() => setAlert2(true)}>
-          <Text style={styles.buttonText1}>Alert Type #2</Text>
-        </TouchableOpacity>
+        <View style={styles.rowContainer}>
+          <Text style={styles.toggleText}>Visual Alert #1</Text>
+          <TouchableOpacity style={styles.button} 
+          onPress={() => {
+            if (alertEnabled) {
+              setAlert1(true);
+            }
+          }}>
+            <Text style={styles.buttonText}>Test</Text>
+          </TouchableOpacity>
+        </View>
+      
+        <View style={styles.rowContainer3}>
+          <Text style={styles.toggleText}>Visual Alert #2</Text>
+          <TouchableOpacity style={styles.button} 
+          onPress={() => {
+            if (alertEnabled) {
+              setAlert2(true);
+              }
+              }}>
+            <Text style={styles.buttonText}>Test</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <AwesomeAlert
@@ -27,39 +56,25 @@ export default function App() {
         showProgress={false}
         title="Approaching Intersection"
         titleStyle={styles.alert1Text}
-        // customView={require('./assets/alert2.png')}
-        message='Look Up!'
+        message="Look Up!"
         messageStyle={styles.alert1Text}
         showConfirmButton={true}
         confirmText="I acknowledge"
         confirmButtonStyle={styles.button2}
-        confirmButtonColor="#DD6B55"
         onConfirmPressed={() => setAlert1(false)}
       />
-      {/* <Modal visible={alert1} transparent={true} animationType='fade'>
-      <View style={styles.alert1Container}>
-        <Text style={styles.alert1Text}>Approaching Intersection</Text>
-        <Image source={require('./assets/alert2.png')} style={styles.alert1Image}/>
-        <Text style={styles.alert1Text}>Look Up!</Text>
-        <TouchableOpacity style={styles.button2} onPress={() => setAlert1(false)}>
-            <Text style={styles.buttonText2}>I acknowledge</Text>
-          </TouchableOpacity>
-      </View>
-      </Modal> */}
-     
 
       <Modal visible={alert2} animationType="slide">
         <View style={styles.alert2Container}>
           <Text style={styles.alert2Text}>Approaching</Text>
           <Text style={styles.alert2Text}>Intersection</Text>
-          <Image source={require('./assets/alert.png')}style={styles.alert2Image}/>
+          <Image source={require('./assets/alert.png')} style={styles.alert2Image} />
           <Text style={styles.alert2Text}>Look Up!</Text>
-          <TouchableOpacity style={styles.button} onPress={() => setAlert2(false)}>
-            <Text style={styles.buttonText1}>I acknowledge</Text>
+          <TouchableOpacity style={styles.button1} onPress={() => setAlert2(false)}>
+            <Text style={styles.ackButtonText}>I acknowledge</Text>
           </TouchableOpacity>
         </View>
       </Modal>
-
     </View>
   );
 }
@@ -67,35 +82,72 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#7e678f',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#e8e5ea',
+    padding: 20,
+    textAlign: 'left',
   },
-  buttonContainer: {
-    flexDirection: 'row', // Make buttons horizontal
-    justifyContent: 'center', // Center buttons horizontally
-    marginTop: 50, // Add spacing
+  mainHeadingText: {
+    color: 'black',
+    fontSize: 30,
+    fontWeight: '700',
+    marginBottom: 20,
+    marginTop: 35
+  },
+  subheadingText: {
+    color: '#52525a',
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 15,
+  },
+  settingsContainer: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    elevation: 5,
+    marginBottom: 15,
+    paddingHorizontal: 15, // Add padding to separate elements
+  },
+  boundary: {
+    height: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    marginVertical: 10,
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    marginHorizontal: -15
+  },
+  rowContainer3: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  toggleText: {
+    color: '#52525a',
+    fontSize: 16,
+    fontWeight: '400'
   },
   button: {
-    backgroundColor: "#fff",
+    backgroundColor: '#7e678f',
     borderRadius: 50,
     paddingVertical: 10,
-    paddingHorizontal: 12,
-    marginTop: 50, // Add margin between buttons
+    paddingHorizontal: 20,
+    marginBottom: 10,
   },
-  buttonText1: {
-    textAlign: 'center',
-    color: '#ad5459',
-    fontSize: 16,
-    paddingLeft: 24,
-    paddingRight: 24,
-  },
-  buttonText2: {
+  buttonText: {
     textAlign: 'center',
     color: '#fff',
-    fontSize: 16,
-    paddingLeft: 24,
-    paddingRight: 24,
+    fontSize: 14,
+  },
+  ackButtonText: {
+    textAlign: 'center',
+    color: '#ad5459',
+    fontSize: 14,
   },
   alert2Text: {
     textAlign: 'center',
@@ -103,17 +155,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
     marginTop: 5,
-
-  },
-  alert1Container: {
-    width: 160,
-    height: 208,
-    borderRadius: 16,
-
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
   },
   alert2Container: {
     backgroundColor: '#ad5459',
@@ -128,28 +169,26 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 50,
   },
-  alert1Image: {
-    height: 130,
-    width: 150,
-    alignItems: 'center',
-    marginTop: 5,
-    marginBottom: 5,
-  },
   alert1Text: {
     textAlign: 'center',
     color: 'black',
     fontSize: 30,
     fontWeight: '700',
     marginTop: 5,
-  }, 
-  button2: {
-    flexDirection: 'row', // Make buttons horizontal
-    justifyContent: 'center', // Center buttons horizontally
-    marginTop: 50, // Add spacing
-    backgroundColor: "#ad5459",
+  },
+  button1: {
+    backgroundColor: '#fff',
     borderRadius: 50,
     paddingVertical: 10,
     paddingHorizontal: 24,
-    marginTop: 50, // Add margin between buttons
-  }
+    marginBottom: 10,
+    marginTop: 50,
+  },
+  button2: {
+    backgroundColor: '#ad5459',
+    borderRadius: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    marginBottom: 10,
+  },
 });
