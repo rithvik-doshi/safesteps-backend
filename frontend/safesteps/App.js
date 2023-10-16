@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react';
-
 import {Audio} from 'expo-av';
-import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch } from 'react-native';
+import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar} from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function App() {
@@ -205,7 +204,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 10,
   },
   buttonContainer: {
     flexDirection: 'row', // Make buttons horizontal
