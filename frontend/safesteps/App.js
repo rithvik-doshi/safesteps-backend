@@ -119,6 +119,7 @@ export default function App() {
             <Text style={styles.buttonText}>Test</Text>
           </TouchableOpacity>
         </View>
+
 </View>
 
 <Text style={styles.subheadingText}>AUDIO ALERT</Text>
@@ -147,6 +148,18 @@ export default function App() {
 
       </View>
 
+
+        <View style={styles.rowContainer3}> 
+          <Text style={styles.toggleText}>Visual Alert #3</Text>
+          <TouchableOpacity style={styles.button} 
+          onPress={() => 
+          playSound(require('./beep.mp3'))}>
+            <Text style={styles.buttonText}>Test</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      
+      
       <AwesomeAlert
         show={alert1}
         showProgress={false}
