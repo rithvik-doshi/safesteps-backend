@@ -3,6 +3,7 @@ import {Audio} from 'expo-av';
 import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar} from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
+
 export default function App() {
   //Define state variable to manage the sound, playing status, and alert display
   const [sound,setSound] = useState();
@@ -74,7 +75,8 @@ export default function App() {
  
   const [alert1, setAlert1] = useState(false);
   const [alert2, setAlert2] = useState(false);
-  const [alertEnabled, setAlertEnabled] = useState(false);
+  const [visualAlertEnabled, setVisualAlertEnabled] = useState(false);
+  const [audioAlertEnabled, setAudioAlertEnabled] = useState(false);
 
   
 
@@ -87,8 +89,8 @@ export default function App() {
         <View style={styles.rowContainer}>
           <Text style={styles.toggleText}>Enable Visual Alerts</Text>
           <Switch
-            value={alertEnabled}
-            onValueChange={() => setAlertEnabled(!alertEnabled)}
+            value={visualAlertEnabled}
+            onValueChange={() => setVisualAlertEnabled(!visualAlertEnabled)}
             trackColor={{ false: '#e8e5ea', true: '#7e678f' }}
           />
         </View>
@@ -98,7 +100,7 @@ export default function App() {
           <Text style={styles.toggleText}>Visual Alert #1</Text>
           <TouchableOpacity style={styles.button} 
           onPress={() => {
-            if (alertEnabled) {
+            if (visualAlertEnabled) {
               setAlert1(true);
             }
           }}>
@@ -110,13 +112,42 @@ export default function App() {
           <Text style={styles.toggleText}>Visual Alert #2</Text>
           <TouchableOpacity style={styles.button} 
           onPress={() => {
-            if (alertEnabled) {
+            if (visualAlertEnabled) {
               setAlert2(true);
               }
               }}>
             <Text style={styles.buttonText}>Test</Text>
           </TouchableOpacity>
         </View>
+
+</View>
+
+<Text style={styles.subheadingText}>AUDIO ALERT</Text>
+
+    <View style={styles.settingsContainer}>
+        <View style={styles.rowContainer}>
+        <Text style={styles.toggleText}>Enable Audio Alerts</Text>
+          <Switch
+            value={audioAlertEnabled}
+            onValueChange={() => setAudioAlertEnabled(!audioAlertEnabled)}
+            trackColor={{ false: '#e8e5ea', true: '#7e678f' }}
+          />
+        </View>
+
+        <View style={styles.rowContainer}>
+          <Text style={styles.toggleText}>Audio Alert</Text>
+          <TouchableOpacity style={styles.button} 
+          onPress={() => {
+            if (audioAlertEnabled) {
+              playSound(require('./beep.mp3'));
+              }
+              }}>
+            <Text style={styles.buttonText}>Test</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+
 
         <View style={styles.rowContainer3}> 
           <Text style={styles.toggleText}>Visual Alert #3</Text>
@@ -142,7 +173,7 @@ export default function App() {
         onConfirmPressed={() => setAlert1(false)}
       />
 
-      <Modal visible={alert2} animationType="slide">
+      <Modal visible={alert2} animationType="fade">
         <View style={styles.alert2Container}>
           <Text style={styles.alert2Text}>Approaching</Text>
           <Text style={styles.alert2Text}>Intersection</Text>
