@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import {Audio} from 'expo-av';
-import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar} from 'react-native';
+import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar, TextInput, ScrollView} from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 export default function App() {
@@ -78,12 +79,40 @@ export default function App() {
   const [visualAlertEnabled, setVisualAlertEnabled] = useState(false);
   const [audioAlertEnabled, setAudioAlertEnabled] = useState(false);
 
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = () => {
+    // Post name and message to server
+    console.log(`Name: ${name}, Message: ${message}`);
+
+    // Send name and message to server in a POST request
+    // NOTE that this is R's IP address, so we will need to change it to Firebase once
+    // it's up and running
+    fetch(`http://10.239.87.237:8000/form/${name}/${message}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, message })
+    }
+    
+    // ).then(
+    //   (response) => console.log(response)
+
+    );
+
+    // Clear inputs
+    setName('');
+    setMessage('');
+  };
+
   
 
   return (
     <>
     
-    <View style={styles.container}>
+    <KeyboardAwareScrollView style={styles.container}>
       <Text style={styles.mainHeadingText}>Alert Types</Text>
       <Text style={styles.subheadingText}>VISUAL ALERT</Text>
 
@@ -148,7 +177,6 @@ export default function App() {
 
       </View>
 
-
       <View style={styles.rowContainer3}>
         <Text style={styles.toggleText}>Visual Alert #3</Text>
         <TouchableOpacity style={styles.button}
@@ -160,7 +188,66 @@ export default function App() {
           <Text style={styles.buttonText}>Test</Text>
         </TouchableOpacity>
       </View>
-    </View><AwesomeAlert
+
+      <View>
+            <Text style={styles.subheadingText}>Feedback</Text>
+
+            <View style={styles.settingsContainer}>
+              <View style={styles.rowContainer}>
+                <Text style={styles.toggleText}>Name</Text>
+                <TextInput
+                  style={styles.input}
+                  value={name}
+                  onChangeText={setName}
+                  placeholder='Enter your name here'
+                />
+              </View>
+
+              <View style={styles.rowContainer}>
+                <Text style={styles.toggleText}>Message</Text>
+                <TextInput
+                  style={styles.input}
+                  value={message}
+                  onChangeText={setMessage}
+                  placeholder='Enter your message here'
+                />
+              </View>
+
+              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+
+      {/* import React, { useState } from 'react';
+      import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+
+      function App() {
+        const [name, setName] = useState('');
+        const [message, setMessage] = useState('');
+
+        const handleSubmit = () => {
+          // Post name and message to server
+          console.log(`Name: ${name}, Message: ${message}`);
+          // Clear inputs
+          setName('');
+          setMessage('');
+        };
+
+        return (
+          
+        ); */}
+
+
+        
+      {/* } */}
+
+      
+
+    </KeyboardAwareScrollView>
+    
+    <AwesomeAlert
         show={alert1}
         showProgress={false}
         title="Approaching Intersection"
@@ -180,7 +267,12 @@ export default function App() {
             <Text style={styles.ackButtonText}>I acknowledge</Text>
           </TouchableOpacity>
         </View>
+
+        
+      
+
       </Modal>
+
       
       {/* <Button
         title= "Audio Alert"
