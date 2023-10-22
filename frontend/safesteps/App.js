@@ -89,7 +89,7 @@ export default function App() {
     // Send name and message to server in a POST request
     // NOTE that this is R's IP address, so we will need to change it to Firebase once
     // it's up and running
-    fetch(`http://10.239.87.237:8000/form/${name}/${message}`, {
+    fetch(`http://192.168.1.37:8000/form/${name}/${message}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ export default function App() {
 
       </View>
 
-      <View style={styles.rowContainer3}>
+      {/* <View style={styles.rowContainer3}>
         <Text style={styles.toggleText}>Visual Alert #3</Text>
         <TouchableOpacity style={styles.button}
           onPress={() => {
@@ -187,7 +187,7 @@ export default function App() {
             }}>
           <Text style={styles.buttonText}>Test</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <View>
             <Text style={styles.subheadingText}>Feedback</Text>
