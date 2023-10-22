@@ -1,3 +1,6 @@
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import React,{useState,useEffect} from 'react';
 import {Audio} from 'expo-av';
 import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar} from 'react-native';
@@ -9,7 +12,20 @@ export default function App() {
   const [sound,setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [canShowAlert, setCanShowAlert] = useState(true);
+  
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyCD8yq5aqe6cV_6OS2Z095n1H5gChR-uQU",
+    authDomain: "safesteps-6a1bb.firebaseapp.com",
+    projectId: "safesteps-6a1bb",
+    storageBucket: "safesteps-6a1bb.appspot.com",
+    messagingSenderId: "605033499652",
+    appId: "1:605033499652:web:cb2ff98f6070d3bcb2b951",
+    measurementId: "G-9K9G3TZHZZ"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  const db = firebase.firestore();
   //Function to load the sound asynchronously
   const loadSound = async (alertFile) => {
     try {
@@ -149,7 +165,7 @@ export default function App() {
       </View>
 
 
-      <View style={styles.rowContainer3}>
+      {/* <View style={styles.rowContainer3}>
         <Text style={styles.toggleText}>Visual Alert #3</Text>
         <TouchableOpacity style={styles.button}
           onPress={() => {
@@ -159,7 +175,7 @@ export default function App() {
             }}>
           <Text style={styles.buttonText}>Test</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View><AwesomeAlert
         show={alert1}
         showProgress={false}
@@ -182,21 +198,13 @@ export default function App() {
         </View>
       </Modal>
       
-      {/* <Button
-        title= "Audio Alert"
-        color="black"
-        //onPress={() => Alert.alert('Continue?')}
-        onPress={() => playSound(require('./alert1.mp3'))}
-        buttonStyle={styles.button}
-        titleStyle={styles.text}
-      /> */}
-
       <StatusBar style="auto" />
       
       </>
     
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
