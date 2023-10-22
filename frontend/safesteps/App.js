@@ -81,6 +81,8 @@ export default function App() {
   
 
   return (
+    <>
+    
     <View style={styles.container}>
       <Text style={styles.mainHeadingText}>Alert Types</Text>
       <Text style={styles.subheadingText}>VISUAL ALERT</Text>
@@ -91,57 +93,55 @@ export default function App() {
           <Switch
             value={visualAlertEnabled}
             onValueChange={() => setVisualAlertEnabled(!visualAlertEnabled)}
-            trackColor={{ false: '#e8e5ea', true: '#7e678f' }}
-          />
+            trackColor={{ false: '#e8e5ea', true: '#7e678f' }} />
         </View>
-  
+
 
         <View style={styles.rowContainer}>
           <Text style={styles.toggleText}>Visual Alert #1</Text>
-          <TouchableOpacity style={styles.button} 
-          onPress={() => {
-            if (visualAlertEnabled) {
-              setAlert1(true);
-            }
-          }}>
+          <TouchableOpacity style={styles.button}
+            onPress={() => {
+              if (visualAlertEnabled) {
+                setAlert1(true);
+              }
+            } }>
             <Text style={styles.buttonText}>Test</Text>
           </TouchableOpacity>
         </View>
-      
+
         <View style={styles.rowContainer3}>
           <Text style={styles.toggleText}>Visual Alert #2</Text>
-          <TouchableOpacity style={styles.button} 
-          onPress={() => {
-            if (visualAlertEnabled) {
-              setAlert2(true);
+          <TouchableOpacity style={styles.button}
+            onPress={() => {
+              if (visualAlertEnabled) {
+                setAlert2(true);
               }
-              }}>
+            } }>
             <Text style={styles.buttonText}>Test</Text>
           </TouchableOpacity>
         </View>
 
-</View>
+      </View>
 
-<Text style={styles.subheadingText}>AUDIO ALERT</Text>
+      <Text style={styles.subheadingText}>AUDIO ALERT</Text>
 
-    <View style={styles.settingsContainer}>
+      <View style={styles.settingsContainer}>
         <View style={styles.rowContainer}>
-        <Text style={styles.toggleText}>Enable Audio Alerts</Text>
+          <Text style={styles.toggleText}>Enable Audio Alerts</Text>
           <Switch
             value={audioAlertEnabled}
             onValueChange={() => setAudioAlertEnabled(!audioAlertEnabled)}
-            trackColor={{ false: '#e8e5ea', true: '#7e678f' }}
-          />
+            trackColor={{ false: '#e8e5ea', true: '#7e678f' }} />
         </View>
 
         <View style={styles.rowContainer}>
           <Text style={styles.toggleText}>Audio Alert</Text>
-          <TouchableOpacity style={styles.button} 
-          onPress={() => {
-            if (audioAlertEnabled) {
-              playSound(require('./beep.mp3'));
+          <TouchableOpacity style={styles.button}
+            onPress={() => {
+              if (audioAlertEnabled) {
+                playSound(require('./beep.mp3'));
               }
-              }}>
+            } }>
             <Text style={styles.buttonText}>Test</Text>
           </TouchableOpacity>
         </View>
@@ -149,18 +149,18 @@ export default function App() {
       </View>
 
 
-        <View style={styles.rowContainer3}> 
-          <Text style={styles.toggleText}>Visual Alert #3</Text>
-          <TouchableOpacity style={styles.button} 
-          onPress={() => 
-          playSound(require('./beep.mp3'))}>
-            <Text style={styles.buttonText}>Test</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.rowContainer3}>
+        <Text style={styles.toggleText}>Visual Alert #3</Text>
+        <TouchableOpacity style={styles.button}
+          onPress={() => {
+            if (visualAlertEnabled && audioAlertEnabled) {
+              playSound(require('./beep.mp3'))
+            }
+            }}>
+          <Text style={styles.buttonText}>Test</Text>
+        </TouchableOpacity>
       </View>
-      
-      
-      <AwesomeAlert
+    </View><AwesomeAlert
         show={alert1}
         showProgress={false}
         title="Approaching Intersection"
@@ -170,10 +170,7 @@ export default function App() {
         showConfirmButton={true}
         confirmText="I acknowledge"
         confirmButtonStyle={styles.button2}
-        onConfirmPressed={() => setAlert1(false)}
-      />
-
-      <Modal visible={alert2} animationType="fade">
+        onConfirmPressed={() => setAlert1(false)} /><Modal visible={alert2} animationType="fade">
         <View style={styles.alert2Container}>
           <Text style={styles.alert2Text}>Approaching</Text>
           <Text style={styles.alert2Text}>Intersection</Text>
@@ -184,7 +181,7 @@ export default function App() {
           </TouchableOpacity>
         </View>
       </Modal>
-    
+      
       {/* <Button
         title= "Audio Alert"
         color="black"
@@ -195,7 +192,9 @@ export default function App() {
       /> */}
 
       <StatusBar style="auto" />
-    </View>
+      
+      </>
+    
   );
 }
 
