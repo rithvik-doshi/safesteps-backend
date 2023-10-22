@@ -1,17 +1,29 @@
-import React,{useState,useEffect} from 'react';
+import { React, useState } from 'react';
 import {Audio} from 'expo-av';
-import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar} from 'react-native';
+import {Text, View, Modal, TouchableOpacity, Image, Switch, StatusBar} from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import { BorderOuter } from 'react-bootstrap-icons';
+import * as Font from 'expo-font'
+import { styles } from './components/styles'
 
 
 export default function App() {
   //Define state variable to manage the sound, playing status, and alert display
-  const [sound,setSound] = useState();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [canShowAlert, setCanShowAlert] = useState(true);
+  // const [sound,setSound] = useState();
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [canShowAlert, setCanShowAlert] = useState(true);
 
-  playSound = async () => {
+  async function loadFont(){
+    await Font.loadAsync({
+      'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.otf'),
+      'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.otf'),
+      'Bitter-Regular': require('./assets/fonts/Bitter-Regular.otf'),
+      'Shrikhand-Regular': require('./assets/fonts/Shrikhand-Regular.otf'),
+    });
+  };
+loadFont();
+
+
+playSound = async () => {
     const sound = new Audio.Sound();
     try {
       let source = require('./beep.mp3');
@@ -164,7 +176,7 @@ export default function App() {
            title="Ongoing Auditory Alert"
            titleStyle={styles.alert1Text}
            message="When the auditory alert is enabled, just the audio will play. This pop-up is just to show  that the alert is working."
-           messageStyle={styles.buttonText1}
+           messageStyle={styles.toggleText}
            showConfirmButton={true}
            confirmText="Test Again"
            confirmButtonStyle={styles.audiobutton2}
@@ -210,137 +222,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#e8e5ea',
-    padding: 20,
-    textAlign: 'left',
-  },
-  mainHeadingText: {
-    color: 'black',
-    fontSize: 30,
-    fontWeight: '700',
-    marginBottom: 20,
-    marginTop: 35
-  },
-  subheadingText: {
-    color: '#52525a',
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 15,
-  },
-  settingsContainer: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    elevation: 5,
-    marginBottom: 15,
-    paddingHorizontal: 15, // Add padding to separate elements
-  },
-  boundary: {
-    height: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    marginVertical: 10,
-  },
-  rowContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
-    marginHorizontal: -15
-  },
-  rowContainer3: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row', // Make buttons horizontal
-    justifyContent: 'center', // Center buttons horizontally
-    marginTop: 50, // Add spacing
-  },
-  button: {
-    backgroundColor: '#7e678f',
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginBottom: 10,
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: 14,
-  },
-  ackButtonText: {
-    textAlign: 'center',
-    color: '#ad5459',
-    fontSize: 14,
-  },
-  ackButtonText2: {
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: 14,
-  },
-  alert2Text: {
-    textAlign: 'center',
-    color: '#F9FAFB',
-    fontSize: 30,
-    fontWeight: '700',
-    marginTop: 5,
-  },
-  alert2Container: {
-    backgroundColor: '#ad5459',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-  },
-  alert2Image: {
-    height: 118,
-    width: 120,
-    alignItems: 'center',
-    marginTop: 50,
-    marginBottom: 50,
-  },
-  alert1Text: {
-    textAlign: 'center',
-    color: 'black',
-    fontSize: 30,
-    fontWeight: '700',
-    marginTop: 5,
-  },
-  button1: {
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 24,
-    marginBottom: 10,
-    marginTop: 50,
-  },
-  button2: {
-    backgroundColor: '#ad5459',
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 24,
-    marginBottom: 10,
-  },
-  audiobutton1: {
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 24,
-    marginBottom: 10,
-    borderColor: '#ad5459',
-    borderWidth: 1,
-  },
-  audiobutton2: {
-    backgroundColor: '#ad5459',
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 24,
-    marginBottom: 10,
-  },
-});
