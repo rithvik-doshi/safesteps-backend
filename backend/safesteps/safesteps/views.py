@@ -3,6 +3,7 @@ from firebase_admin import credentials ,db, firestore
 cred = credentials.Certificate('privateKey.json')
 firebase_admin.initialize_app(cred)
 
+#Make sure to pip3 install firebase-admin
 #The object to connect with the firestore database
 db = firestore.client()
 

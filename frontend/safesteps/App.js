@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-
+//Run npm install firebase
 import React,{useState,useEffect} from 'react';
 import {Audio} from 'expo-av';
 import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar} from 'react-native';
