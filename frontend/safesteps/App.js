@@ -7,26 +7,24 @@ import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-
 export default function App() {
   //Define state variable to manage the sound, playing status, and alert display
   const [sound,setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [canShowAlert, setCanShowAlert] = useState(true);
-  
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCD8yq5aqe6cV_6OS2Z095n1H5gChR-uQU",
-    authDomain: "safesteps-6a1bb.firebaseapp.com",
-    projectId: "safesteps-6a1bb",
-    storageBucket: "safesteps-6a1bb.appspot.com",
-    messagingSenderId: "605033499652",
-    appId: "1:605033499652:web:cb2ff98f6070d3bcb2b951",
-    measurementId: "G-9K9G3TZHZZ"
-  };
-  firebase.initializeApp(firebaseConfig);
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyCD8yq5aqe6cV_6OS2Z095n1H5gChR-uQU",
+  //   authDomain: "safesteps-6a1bb.firebaseapp.com",
+  //   projectId: "safesteps-6a1bb",
+  //   storageBucket: "safesteps-6a1bb.appspot.com",
+  //   messagingSenderId: "605033499652",
+  //   appId: "1:605033499652:web:cb2ff98f6070d3bcb2b951",
+  //   measurementId: "G-9K9G3TZHZZ"
+  // };
+  // firebase.initializeApp(firebaseConfig);
 
-  const db = firebase.firestore();
+  // const db = firebase.firestore();
   //Function to load the sound asynchronously
   const loadSound = async (alertFile) => {
     try {
@@ -236,29 +234,7 @@ export default function App() {
           </View>
 
 
-      {/* import React, { useState } from 'react';
-      import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-
-      function App() {
-        const [name, setName] = useState('');
-        const [message, setMessage] = useState('');
-
-        const handleSubmit = () => {
-          // Post name and message to server
-          console.log(`Name: ${name}, Message: ${message}`);
-          // Clear inputs
-          setName('');
-          setMessage('');
-        };
-
-        return (
-          
-        ); */}
-
-
-        
-      {/* } */}
-
+     
       
 
     </KeyboardAwareScrollView>
@@ -288,15 +264,6 @@ export default function App() {
       
 
       </Modal>
-      
-      {/* <Button
-        title= "Audio Alert"
-        color="black"
-        //onPress={() => Alert.alert('Continue?')}
-        onPress={() => playSound(require('./alert1.mp3'))}
-        buttonStyle={styles.button}
-        titleStyle={styles.text}
-      /> */}
 
       <StatusBar style="auto" />
       
@@ -304,7 +271,6 @@ export default function App() {
     
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
