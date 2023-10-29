@@ -5,9 +5,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
 # from safesteps.utils import read_n_to_last_line
-from utils import read_n_to_last_line
+from .utils import read_n_to_last_line
 import datetime
-
 cred = credentials.Certificate(r'C:\Users\kitya\Downloads\safesteps-software\backend\safesteps\privateKey.json')
 firebase_admin.initialize_app(cred)
 
