@@ -25,6 +25,7 @@ export default function App() {
   // firebase.initializeApp(firebaseConfig);
 
   // const db = firebase.firestore();
+  
   //Function to load the sound asynchronously
   const loadSound = async (alertFile) => {
     try {
@@ -182,7 +183,7 @@ export default function App() {
           <TouchableOpacity style={styles.button}
             onPress={() => {
               if (audioAlertEnabled) {
-                playSound(require('./beep.mp3'));
+                playSound(require('./alerts/alert1.mp3'));
               }
             } }>
             <Text style={styles.buttonText}>Test</Text>
@@ -191,17 +192,7 @@ export default function App() {
 
       </View>
 
-      {/* <View style={styles.rowContainer3}>
-        <Text style={styles.toggleText}>Visual Alert #3</Text>
-        <TouchableOpacity style={styles.button}
-          onPress={() => {
-            if (visualAlertEnabled && audioAlertEnabled) {
-              playSound(require('./beep.mp3'))
-            }
-            }}>
-          <Text style={styles.buttonText}>Test</Text>
-        </TouchableOpacity>
-      </View> */}
+      
 
       <View>
             <Text style={styles.subheadingText}>Feedback</Text>
