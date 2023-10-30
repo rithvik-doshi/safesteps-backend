@@ -28,9 +28,6 @@ data2 = {
 doc_ref = db.collection('Users').document('Tyreek Hill')
 doc_ref.set(data2)
 
-#existing_data = doc_ref.get().to_dict()
-# merged_data = {**existing_data, **data1, **data2}
-# doc_ref.set(merged_data)
 data_3 ={ 
     "Team": "New England Patriots",
     "Jersey Number": 12,

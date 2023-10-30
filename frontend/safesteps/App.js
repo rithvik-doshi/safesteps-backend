@@ -1,30 +1,26 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 //Run npm install firebase
 import React,{useState,useEffect} from 'react';
+import { FIREBASE_DB } from './firebaseConfig';
+import {doc, setDoc, addDoc, collection } from 'firebase/firestore';
 import {Audio} from 'expo-av';
-import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar, TextInput, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar, TextInput} from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+
+// Ensure that Firebase is initialized only once
+// if (getApps().length === 0) {
+//   initializeApp(firebaseConfig);
+// } 
+
+// const db = getFirestore();
+
+//const FeedbackCollection = db.collection('Feedback');
 export default function App() {
   //Define state variable to manage the sound, playing status, and alert display
   const [sound,setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [canShowAlert, setCanShowAlert] = useState(true);
-
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyCD8yq5aqe6cV_6OS2Z095n1H5gChR-uQU",
-  //   authDomain: "safesteps-6a1bb.firebaseapp.com",
-  //   projectId: "safesteps-6a1bb",
-  //   storageBucket: "safesteps-6a1bb.appspot.com",
-  //   messagingSenderId: "605033499652",
-  //   appId: "1:605033499652:web:cb2ff98f6070d3bcb2b951",
-  //   measurementId: "G-9K9G3TZHZZ"
-  // };
-  // firebase.initializeApp(firebaseConfig);
-
-  // const db = firebase.firestore();
   
   //Function to load the sound asynchronously
   const loadSound = async (alertFile) => {
@@ -94,10 +90,21 @@ export default function App() {
   const [visualAlertEnabled, setVisualAlertEnabled] = useState(false);
   const [audioAlertEnabled, setAudioAlertEnabled] = useState(false);
 
+  
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-
-  const handleSubmit = () => {
+ 
+  const handleSubmit = async () => {
+    //console.log(FIREBASE_DB);
+    try {
+      const docRef = doc(FIREBASE_DB,'Feedback',name);
+      // await addDoc(docRef,{name,message});
+      await setDoc(docRef,{name,message});
+      //const docRef = await addDoc(collection(FIREBASE_DB, 'Users'), { name: name, message: message});
+      console.log('Document written with ID:', docRef.id);
+    }catch (error){
+      console.log('This is the error',error);
+    }
     // Post name and message to server
     console.log(`Name: ${name}, Message: ${message}`);
 
@@ -218,7 +225,7 @@ export default function App() {
                 />
               </View>
 
-              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <TouchableOpacity style={styles.button} onPress={() => handleSubmit()}>
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
             </View>
