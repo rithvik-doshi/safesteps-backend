@@ -1,16 +1,27 @@
+//Run npm install firebase
 import React,{useState,useEffect} from 'react';
+import { FIREBASE_DB } from './firebaseConfig';
+import {doc, setDoc, addDoc, collection } from 'firebase/firestore';
 import {Audio} from 'expo-av';
-import {Button, StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar, TextInput, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, Modal, TouchableOpacity, Image, Switch ,Alert, StatusBar, TextInput} from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
+// Ensure that Firebase is initialized only once
+// if (getApps().length === 0) {
+//   initializeApp(firebaseConfig);
+// } 
+
+// const db = getFirestore();
+
+//const FeedbackCollection = db.collection('Feedback');
 export default function App() {
   //Define state variable to manage the sound, playing status, and alert display
   const [sound,setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [canShowAlert, setCanShowAlert] = useState(true);
-
+  
   //Function to load the sound asynchronously
   const loadSound = async (alertFile) => {
     try {
@@ -79,10 +90,21 @@ export default function App() {
   const [visualAlertEnabled, setVisualAlertEnabled] = useState(false);
   const [audioAlertEnabled, setAudioAlertEnabled] = useState(false);
 
+  
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-
-  const handleSubmit = () => {
+ 
+  const handleSubmit = async () => {
+    //console.log(FIREBASE_DB);
+    try {
+      const docRef = doc(FIREBASE_DB,'Feedback',name);
+      // await addDoc(docRef,{name,message});
+      await setDoc(docRef,{name,message});
+      //const docRef = await addDoc(collection(FIREBASE_DB, 'Users'), { name: name, message: message});
+      console.log('Document written with ID:', docRef.id);
+    }catch (error){
+      console.log('This is the error',error);
+    }
     // Post name and message to server
     console.log(`Name: ${name}, Message: ${message}`);
 
@@ -168,7 +190,7 @@ export default function App() {
           <TouchableOpacity style={styles.button}
             onPress={() => {
               if (audioAlertEnabled) {
-                playSound(require('./beep.mp3'));
+                playSound(require('./alerts/alert1.mp3'));
               }
             } }>
             <Text style={styles.buttonText}>Test</Text>
@@ -177,17 +199,7 @@ export default function App() {
 
       </View>
 
-      {/* <View style={styles.rowContainer3}>
-        <Text style={styles.toggleText}>Visual Alert #3</Text>
-        <TouchableOpacity style={styles.button}
-          onPress={() => {
-            if (visualAlertEnabled && audioAlertEnabled) {
-              playSound(require('./beep.mp3'))
-            }
-            }}>
-          <Text style={styles.buttonText}>Test</Text>
-        </TouchableOpacity>
-      </View> */}
+      
 
       <View>
             <Text style={styles.subheadingText}>Feedback</Text>
@@ -213,36 +225,14 @@ export default function App() {
                 />
               </View>
 
-              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <TouchableOpacity style={styles.button} onPress={() => handleSubmit()}>
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
             </View>
           </View>
 
 
-      {/* import React, { useState } from 'react';
-      import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-
-      function App() {
-        const [name, setName] = useState('');
-        const [message, setMessage] = useState('');
-
-        const handleSubmit = () => {
-          // Post name and message to server
-          console.log(`Name: ${name}, Message: ${message}`);
-          // Clear inputs
-          setName('');
-          setMessage('');
-        };
-
-        return (
-          
-        ); */}
-
-
-        
-      {/* } */}
-
+     
       
 
     </KeyboardAwareScrollView>
@@ -272,16 +262,6 @@ export default function App() {
       
 
       </Modal>
-
-      
-      {/* <Button
-        title= "Audio Alert"
-        color="black"
-        //onPress={() => Alert.alert('Continue?')}
-        onPress={() => playSound(require('./alert1.mp3'))}
-        buttonStyle={styles.button}
-        titleStyle={styles.text}
-      /> */}
 
       <StatusBar style="auto" />
       
