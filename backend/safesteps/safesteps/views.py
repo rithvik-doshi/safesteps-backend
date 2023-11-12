@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import sys
 
-cred_path = 'privateKey.json'
+cred_path = 'firebase.json'
 bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
 path_to_dat = path.abspath(path.join(bundle_dir, cred_path))
 
