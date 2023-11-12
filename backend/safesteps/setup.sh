@@ -1,1 +1,1 @@
-pip install -r safesteps/requirements.txt
+pip install -r requirements.txt
