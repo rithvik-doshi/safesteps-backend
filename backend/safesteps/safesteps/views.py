@@ -1,16 +1,22 @@
 import firebase_admin
-from firebase_admin import credentials ,db, firestore
+from firebase_admin import credentials, db, firestore
 from django.shortcuts import render
 import requests
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
+from os import path
 # from safesteps.utils import read_n_to_last_line
 import datetime
 from dotenv import load_dotenv
 load_dotenv()
+import sys
 
-cred = credentials.Certificate(r'C:\Users\kitya\Documents\safesteps-backend\backend\safesteps\safesteps\privateKey.json')
+cred_path = 'privateKey.json'
+bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
+path_to_dat = path.abspath(path.join(bundle_dir, cred_path))
+
+cred = credentials.Certificate(path_to_dat)
 firebase_admin.initialize_app(cred)
 
 #Make sure to pip3 install firebase-admin

@@ -3,5 +3,5 @@
 **/__pycache__
 **/data.txt
 **/.pytest_cache
-privateKey.json
+**privateKey.json
 django_admin.txt
