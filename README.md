@@ -23,34 +23,30 @@ Here are the links for the any of the softwares that you would required to be in
 1. Clone this repository to your local desktop:
 
    ```shell
-   git clone git@github.com:rithvik-doshi/safesteps-software.git
+   git clone git@github.com:rithvik-doshi/safesteps-backend.git
    ```
 2. change the directory to where you clone your repository on your Desktop 
    ```shell
    cd "\safesteps-software"
    ```
-3. Change the directory to the frontend directory in order to install all the dependencies for the app
+3. Change the directory to the backend directory in order to install all the dependencies for the app
    ```shell
-   cd ".\safesteps-software\frontend\safesteps\"
-   ``` 
+   cd ".\safesteps-backend\backend\safesteps\safesteps"
+   ```
+4. Install all python packages
+   ```shell
+   pip install -r requirements.txt
+   ```
 ## Running the app
 Once you have cloned the repository from github, here are the next steps you will follow
 1. Open the terminal on your computer and run the following commands:
-
-2. Install the project dependencies for the app under the directory above
+2. Change the directory going back to the parent directory
    ```shell
-   npm install 
+   cd../
    ```
-3. Install Expo framework on your computer
+3. Run the django server in a specific server
    ```shell
-   npm install -g expo-cli
-   ```
-4. Start the development server on your computer
-   ```shell
-   npx expo start
+   python run.py
    ```
 
-## How to view the app from your phone
-Once your server is up and running, make sure your computer and phone are connected to the same WiFi in order to connect the app.
-There will be a QR code for you to scan and will launch the Expo app on your phone.
    
