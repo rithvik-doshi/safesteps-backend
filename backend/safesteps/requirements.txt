@@ -1,3 +1,4 @@
 Django
 firebase-admin
 requests
+dotenv
