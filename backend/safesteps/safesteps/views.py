@@ -80,6 +80,9 @@ def forecast_view(request):
     forecast = getWeatherForecast()
     return HttpResponse(forecast)
 
+def healthcheck_view(request):
+    return HttpResponse("HEALTHY")
+
 
 
 #JSON format for weather forecast
