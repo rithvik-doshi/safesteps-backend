@@ -1,7 +1,7 @@
 # safesteps-software
 
 ## About
-Mobile App
+
 The purpose of this repository is to write code for the backend of the Safesteps app. This includes weather API integration and database management. For the purpose of this semester, this repo is not integral to the full product since the backend is minimal as of right now, but we will expand this in the spring semester.
 
 ## Required Software
